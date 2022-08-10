@@ -1,0 +1,11 @@
+## Nagivate to the parent directory of your main_project
+cd directory_containing_your_project
+
+## Check the full size of your project directory
+du -sh main_project
+
+## Do you have enough disk space?
+df -h .
+
+## If you have enough disk space, then create a full backup
+cp -r main_project main_project_backup/
