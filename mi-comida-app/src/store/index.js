@@ -57,7 +57,7 @@ export default new Vuex.Store({
         let resp = await axios.post (`https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito`, carrito)
         let data = resp.data
 
-        context.commit ('ADD_CARRITO', data)
+        context.commit ('SET_CARRITO', data)
       },
       // async deleteCarrito (contex, payload) {
 
