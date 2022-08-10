@@ -31,6 +31,7 @@ export default {
     data () {
       return {
         products: [],
+        carrito: []
       }
     },
   
@@ -45,14 +46,16 @@ export default {
     this.products = response.data;
   },
 
-  method: {
+  methods: {
     agregarProductoAlCarrito (payload) {
       let o = {... payload, cantidadCarrito: 1 }
       this.$store.commit('agregarAlCarrito', o)
     }
   },
   computed: {
-
+    cart () {
+     return  this.$store.state.carrito
+    }
   }
 };
 

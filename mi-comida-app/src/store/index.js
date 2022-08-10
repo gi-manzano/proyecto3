@@ -7,16 +7,25 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        carrito: [],
+        cart: [],
         products: [],
         usuarios: [],
         name: '',
         email: '',
         password: '',
-        isAdmin: false
+        isAdmin: false,
+        currentUsers: null
     },
+    // getters: {
+    //   cart (state) {
+    //     return state.cart.filter (o => o.usersId === currentUsers.id )
+    //   }
+    // },
     mutations: 
-      {
+      { 
+        SET_CURRENT_USERS (state, payload){
+          state.currentUsers = payload
+        },
         SET_USERS (state, payload){
           state.usuarios = payload
         },
@@ -47,17 +56,15 @@ export default new Vuex.Store({
         
       },
     actions: {
+      
       async getCarrito (context){
         let resp = await axios.get (`https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito`)
         let data = resp.data
-
         context.commit('SET_CARRITO', data)
       },
       async addCarrito (context, carrito){
         let resp = await axios.post (`https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito`, carrito)
-        let data = resp.data
-
-        context.commit ('SET_CARRITO', data)
+        context.commit ('ADD_CARRITO', resp.data)
       },
       // async deleteCarrito (contex, payload) {
 
