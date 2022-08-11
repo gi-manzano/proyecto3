@@ -25,7 +25,21 @@ export default new Vuex.Store({
     getters: {
       
       cart (state) {
-        return state.cart.filter (o => o.usersId === state.currentUsers.id )
+        
+          let products = state.products
+          
+          let carritos = state.carritos.filter (o => o.usersId === state.currentUsers.id )
+          let localCarrito = []
+          carritos.map(item => {
+            let currentProduct = products.filter(o => o.id == item.productId)
+            localCarrito.push ({
+              amount: item.amount,
+              productTitle: currentProduct.title,
+              price: currentProduct.price,
+            })
+          })
+          return localCarrito
+       
       },
       auth (state){
         return state.currentUsers

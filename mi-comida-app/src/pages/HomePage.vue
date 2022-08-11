@@ -20,7 +20,7 @@
     </div>
     <div class="card mb-6">
         <h1>Tu carrito:</h1>
-        {{ addProductoAlCarrito }}
+        {{ $store.getters.carrito }}
     </div>
 </div>
 </template>
@@ -28,7 +28,7 @@
 <script>
 
 import axios from "axios"
-import {mapState} from 'vuex'
+
 
 export default {
   name: "HomePage",
@@ -50,6 +50,8 @@ export default {
       "https://62efbfad57311485d1278ded.mockapi.io/api/products/products"
     );
     this.products = response.data;
+
+  
   },
 
   methods: {
@@ -58,31 +60,14 @@ export default {
    
       let payload = {
         productId: products.id,
+       
         userId: this.$store.getter.auth.id,
         amount: products.cantidad,
       }
       this.$store.dispatch(' addCarrito', payload)
     }
   },
-  computed: mapState ({
-    
-    localCarrito () {
-      let products = this.$store.state.products
-      // let user = this.getters.auth
-      let carritos = this.getters.cart
-      let localCarrito = []
-      carritos.map(item => {
-        let currentProduct = products.filter(o => o.id == item.productId)
-        localCarrito.push ({
-          amount: item.amount,
-          productTitle: currentProduct.title,
-          price: currentProduct.price,
-        })
-      })
-      return localCarrito
-    }
-
-  })
+ 
 };
  
 
