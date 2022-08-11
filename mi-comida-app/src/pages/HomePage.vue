@@ -1,6 +1,6 @@
 <template lang="html">
 <div class="containter">
-  <h1 class="display-2 text-center "> </h1>
+  <h1 class="display-2 text-center "> Listado de Menú </h1>
     <div class="row">
       <div v-for="(item, index) in products" :key="index" class = "col-md-4">
           <div class="card" style="width: 35rem padding: 10px;">
@@ -12,20 +12,24 @@
             <p class="card-subtitle mb-2 text-muted">Stock: {{item.amount}}</p>
             <label/>Cantidad en carrito:
             <input type="text" placeholder="cantidad" v-model="item.cantidad"/>
+    
             <button @click="agregarProductoAlCarrito(item.id)" class="btn btn-primary mb-2" type="button">Add carrito</button> 
           </div>
         </div>
       </div>
     </div>
-  <div class="card-salir">
-  <!-- <button type="button" class="btn btn-secundary">Salir</button> -->
-  </div>
+    <div class="card mb-6">
+        <h1>Tu carrito:</h1>
+        {{ addProductoAlCarrito }}
+    </div>
 </div>
 </template>
 
 <script>
 
 import axios from "axios"
+import {mapState} from 'vuex'
+
 export default {
   name: "HomePage",
   props: [],
@@ -33,7 +37,7 @@ export default {
     data () {
       return {
         products: [],
-        cart: []
+        carito: []
       }
     },
   
@@ -49,30 +53,44 @@ export default {
   },
 
   methods: {
-    /*eslint-disable */
-    agregarProductoAlCarrito (products) {
+
+    addProductoAlCarrito (products) {
    
       let payload = {
         productId: products.id,
         userId: this.$store.getter.auth.id,
         amount: products.cantidad,
       }
-      this.$store.dispatch(' addCarrito', carrito)
+      this.$store.dispatch(' addCarrito', payload)
     }
   },
-  computed: {
-    // carrito () {
-    //  return  this.$store.getters.carrito
-    // }
-  }
-};
+  computed: mapState ({
+    
+    localCarrito () {
+      let products = this.$store.state.products
+      // let user = this.getters.auth
+      let carritos = this.getters.cart
+      let localCarrito = []
+      carritos.map(item => {
+        let currentProduct = products.filter(o => o.id == item.productId)
+        localCarrito.push ({
+          amount: item.amount,
+          productTitle: currentProduct.title,
+          price: currentProduct.price,
+        })
+      })
+      return localCarrito
+    }
 
+  })
+};
+ 
 
 </script>
 
 <style scope>
 .card-body {
-    background: #c7cfb2;
+    background: #abdd9d;
     
     
 }

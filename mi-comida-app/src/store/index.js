@@ -11,8 +11,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         cart: [],
-        // products: [],
-        // usuarios: [],
+        products: [],
+        usuarios: [],
         name: '',
         email: '',
         password: '',
@@ -66,13 +66,14 @@ export default new Vuex.Store({
         
       },
     actions: {
-     
+     /*eslint-disable */
       async getCarrito (context){
         let resp = await axios.get (`https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito`)
         let data = resp.data
         context.commit('SET_CARRITO', data)
       },
       async addCarrito (context, carrito){
+        debugger
         let resp = await axios.post (`https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito`, carrito)
         context.commit ('ADD_CARRITO', resp.data)
       },
