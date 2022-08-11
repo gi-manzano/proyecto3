@@ -20,8 +20,12 @@ export default {
 
     }
   },
+  // add desloguear
   methods:{
-
+    desloguear (){
+      localStorage.clear ()
+      this.$router.push('login')
+    }
   }
 };
 </script>

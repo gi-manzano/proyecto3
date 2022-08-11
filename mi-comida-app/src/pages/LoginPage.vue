@@ -74,6 +74,7 @@ export default {
       localStorage.clear();
 
       if (data) {
+        this.$store.commit ('SET_CURRENT_USERS', data)
         localStorage.setItem("isLogged", "true");
         localStorage.setItem("user", JSON.stringify(data));
 

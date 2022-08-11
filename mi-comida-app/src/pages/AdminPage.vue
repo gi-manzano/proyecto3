@@ -43,14 +43,7 @@ export default {
       products: [],
     };
   },
-  // methods: {
-  //   editarProducto(payload) {
-  //     /*eslint-disable*/
-  //     debugger
-  //     this.$router.push({ name: "editar", params: { id: payload } });
-  //   },
-  // },
-
+  
   async mounted() {
     let isLogged = localStorage.getItem("isLogged");
     let isAdmin = localStorage.getItem("isAdmin");
@@ -78,9 +71,7 @@ export default {
               console.log (response);
               location.reload ()
             })
-            .catch (error => {
-              console.log(error)
-            });
+           
         }
   },
     computed : {

@@ -10,7 +10,9 @@
             <h6 class="card-subtitle mb-2 text-muted">{{item.descripcion}}</h6>
             <p class="card-subtitle mb-2 text-muted">${{item.price}}</p>
             <p class="card-subtitle mb-2 text-muted">Stock: {{item.amount}}</p>
-            <button @click="agregarProductoAlCarrito(item.id)" class="btn btn-primary mb-2">Add carrito</button> 
+            <label/>Cantidad en carrito:
+            <input type="text" placeholder="cantidad" v-model="item.cantidad"/>
+            <button @click="agregarProductoAlCarrito(item.id)" class="btn btn-primary mb-2" type="button">Add carrito</button> 
           </div>
         </div>
       </div>
@@ -31,7 +33,7 @@ export default {
     data () {
       return {
         products: [],
-        carrito: []
+        cart: []
       }
     },
   
@@ -47,15 +49,21 @@ export default {
   },
 
   methods: {
-    agregarProductoAlCarrito (payload) {
-      let o = {... payload, cantidadCarrito: 1 }
-      this.$store.commit('agregarAlCarrito', o)
+    /*eslint-disable */
+    agregarProductoAlCarrito (products) {
+   
+      let payload = {
+        productId: products.id,
+        userId: this.$store.getter.auth.id,
+        amount: products.cantidad,
+      }
+      this.$store.dispatch(' addCarrito', carrito)
     }
   },
   computed: {
-    cart () {
-     return  this.$store.state.carrito
-    }
+    // carrito () {
+    //  return  this.$store.getters.carrito
+    // }
   }
 };
 

@@ -2,36 +2,46 @@ import Vuex from 'vuex'
 import Vue from 'vue'
 import axios from'axios'
 
+import products from './modules/products'
+import users from './modules/users'
+
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
         cart: [],
-        products: [],
-        usuarios: [],
+        // products: [],
+        // usuarios: [],
         name: '',
         email: '',
         password: '',
         isAdmin: false,
         currentUsers: null
     },
-    // getters: {
-    //   cart (state) {
-    //     return state.cart.filter (o => o.usersId === currentUsers.id )
-    //   }
-    // },
+    modules: {
+      products, users
+    },
+    getters: {
+      
+      cart (state) {
+        return state.cart.filter (o => o.usersId === state.currentUsers.id )
+      },
+      auth (state){
+        return state.currentUsers
+      },
+    },
     mutations: 
       { 
-        SET_CURRENT_USERS (state, payload){
-          state.currentUsers = payload
-        },
-        SET_USERS (state, payload){
-          state.usuarios = payload
-        },
-        SET_PORUDCTS (state, payload){
-          state.products = payload
-        },
+        // SET_CURRENT_USERS (state, payload){
+        //   state.currentUsers = payload
+        // },
+        // SET_USERS (state, payload){
+        //   state.usuarios = payload
+        // },
+        // SET_PORUDCTS (state, payload){
+        //   state.products = payload
+        // },
         SET_CARRITO (state, payload){
           state.carrito = payload
         },
@@ -56,7 +66,7 @@ export default new Vuex.Store({
         
       },
     actions: {
-      
+     
       async getCarrito (context){
         let resp = await axios.get (`https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito`)
         let data = resp.data
