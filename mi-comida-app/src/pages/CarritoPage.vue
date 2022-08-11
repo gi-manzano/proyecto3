@@ -11,6 +11,7 @@
           @click="sumarUno(item)">+</button>
           <button class="btn btn-success mx-2" 
           @click="restarUno(item)">-</button>
+         
             <hr>
         </li>
       </ul>
@@ -19,7 +20,9 @@
         <li v-for="(item, index) in $store.state.products" :key="index" @click="agregarProductoAlCarrito(item.id)">{{ item.name }}>
         </li>
       </ul>
-         <button class="btn"><p class="text-center">Precio Total: $ {{precioTotal}}</p>Pagar</button>
+         <button class="btn"><p class="text-center">Precio Total: $ {{precioTotal}}</p></button>
+          <input class="btn btn-success mx-2"
+          @click="comprar ()" value="pagar"/>
           <hr>
       </div>
   </section>
@@ -75,7 +78,7 @@ methods:{
     async Comprar() {
         "https://62efbfad57311485d1278ded.mockapi.io/api/products/products" + this.$route.params.id,
         this.product
-      alert('Compra Finalizada')
+      alert('Buen trabajo!! compra finalziada.')
     },
   },
 };
