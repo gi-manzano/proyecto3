@@ -2,8 +2,8 @@ import Vuex from 'vuex'
 import Vue from 'vue'
 import axios from'axios'
 
-import products from './modules/products'
-import users from './modules/users'
+
+
 
 
 Vue.use(Vuex)
@@ -13,87 +13,113 @@ export default new Vuex.Store({
         cart: [],
         products: [],
         usuarios: [],
+        products_edit: [],
         name: '',
         email: '',
         password: '',
         isAdmin: false,
-        currentUsers: null
+        currentproductos: null
     },
-    modules: {
-      products, users
-    },
+   
     getters: {
       
-      cart (state) {
-        
-          let products = state.products
-          
-          let carritos = state.carritos.filter (o => o.usersId === state.currentUsers.id )
-          let localCarrito = []
-          carritos.map(item => {
-            let currentProduct = products.filter(o => o.id == item.productId)
-            localCarrito.push ({
-              amount: item.amount,
-              productTitle: currentProduct.title,
-              price: currentProduct.price,
-            })
-          })
-          return localCarrito
-       
+      getUsuarios: (state) => {
+        return state.usuarios
       },
-      auth (state){
-        return state.currentUsers
+      getProducts: (state) => {
+        return state.products
       },
+      getEditProduct: (state) => {
+        return state.products_edit
+      }
     },
     mutations: 
       { 
-        // SET_CURRENT_USERS (state, payload){
-        //   state.currentUsers = payload
-        // },
-        // SET_USERS (state, payload){
-        //   state.usuarios = payload
-        // },
-        // SET_PORUDCTS (state, payload){
-        //   state.products = payload
-        // },
-        SET_CARRITO (state, payload){
-          state.carrito = payload
-        },
-        ADD_CARRITO (state, payload){
-          state.carrito.unshift(payload)
-        },
-        DELETE_CARRITO (state, payload){
-          state.carrito = payload
-        },
-        SET_ADMIN (state, payload){
-          state.isAdmin = payload
-        },
+       ADD_USUARIOS: (state, usuarios) =>{
+        state.usuarios = usuarios;
+       },
+       ADD_PRODUCTS: (state, products) => {
+        state.products = products
+       },
+       ADD_EDIT_PRODUCT: (state, products) => {
+        state.products_edit = products
+       },
 
-        // agregarAlCarrito: (state, payload) => {
-        //   let o = state.carrito.find(x => x.id === payload.id)
-        //   if(o){
-            
-        //     payload = {...payload,cantidadCarrito: o.id + 1 };
-        //   }
-        //   state.carrito.unshift(payload); //push
-        // },
+       ADD_CARRITO: (state, carrito) => {
+        state.carrito = carrito
+       },
+
+       
         
       },
     actions: {
-     /*eslint-disable */
+      async Postregistro (payload) {
+        try {
+          await axios.post ('https://62efbfad57311485d1278ded.mockapi.io/api/products/user',payload)
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      async getLogin (contex) {
+        try {
+          let response = await axios.get('https://62efbfad57311485d1278ded.mockapi.io/api/products/user')
+          contex.commit ('ADD_USUARIO', response.data)
+        } catch (e) {
+          console.log(e)
+        }
+      },
+     
       async getCarrito (context){
-        let resp = await axios.get (`https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito`)
+        let resp = await axios.get ('https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito')
         let data = resp.data
         context.commit('SET_CARRITO', data)
       },
       async addCarrito (context, carrito){
-        debugger
-        let resp = await axios.post (`https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito`, carrito)
+        
+        let resp = await axios.post ('https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito', carrito)
         context.commit ('ADD_CARRITO', resp.data)
       },
-      // async deleteCarrito (contex, payload) {
+      async deleteProduct (contex, payload) {
+        await axios.delete ('https://62efbfad57311485d1278ded.mockapi.io/api/products/products/' + payload)
+        .then (response => {
+          console.log(response);
+          location.reload ()
+        })
+      },
+      async getProduct (context, payload) {
+        try {
+          let response = await axios.get ("https://62efbfad57311485d1278ded.mockapi.io/api/products/products" + payload)
+          context.commit('SAVE_PRODUCT', response.data)
+        } catch(e) {
+          console.log(e)
+        }
+      },
+      async editProduct (contex, payload) {
+        try {
+          await axios.put("https://62efbfad57311485d1278ded.mockapi.io/api/products/products" + payload.id, {
+            name: payload.data.name,
+            description: payload.data.description,
+            price: payload.data.price,
+            amoutn: payload.data.amount
+          })
+        }catch (e) {
+          console.log(e)
+        }
+      },
+      async settingProduct (context, payload) {
+        try {
+          await axios.post ("https://62efbfad57311485d1278ded.mockapi.io/api/products/products", {
+            title: payload.title,
+            description: payload.description,
+            price: payload.price,
+            amount: payload.amount
+          })
+        } catch (e) {console.log(e)}
+      }
 
-      // },
+
+      
+
 
     },
 });

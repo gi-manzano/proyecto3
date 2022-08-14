@@ -25,6 +25,7 @@ export default new router({
     {path: '/admin', component: AdminPage, props: true},
     {path: '/admin/create', component: CreatePage, props: true},
     {path: '/admin/edit/:id', component: EditarPage, props: true},
+    {path: '/carrito', component: CarritoPage, props: true},
     {path: '/carrito/:id', component: CarritoPage, props: true},
    
     ]

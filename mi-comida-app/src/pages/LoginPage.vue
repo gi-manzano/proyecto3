@@ -14,20 +14,20 @@
                     <div class="col-md-12 mb-4">
                       <!-- email -->
                       <div class="form-outline">
-                        <label class="form-label" for="form2Example1">Tu Email</label>
+                        <label class="form-label" for="usuario">Tu Email</label>
                         <input 
                         type="email" 
-                        id="form2Example1" 
+                        id="usuario" 
                         class="form-control form-control-lg" 
                         name="email"
                         v-model="email"/>
                       </div>
                       <!-- password -->
                       <div class="form-outline">
-                        <label class="form-label" for="form2Example2">Tu Password</label>
+                        <label class="form-label" for="password">Tu Password</label>
                         <input 
                         type="password" 
-                        id="form2Example2" 
+                        id="password" 
                         class="form-control form-control-lg"
                         name="password" 
                         v-model="password"/>
@@ -56,6 +56,7 @@
 <script>
 
 import axios from "axios";
+import {mapGetters} from 'vuex';
 export default {
   name: "LoginPage",
   props: [],
@@ -74,7 +75,7 @@ export default {
       localStorage.clear();
 
       if (data) {
-        this.$store.commit ('SET_CURRENT_USERS', data)
+        this.$store.commit ('SET_CURRENT_USUARIOS', data)
         localStorage.setItem("isLogged", "true");
         localStorage.setItem("user", JSON.stringify(data));
 
@@ -94,7 +95,11 @@ export default {
     const response = await axios.get("https://62efbfad57311485d1278ded.mockapi.io/api/products/user");
     this.usuarios = response.data;
   },
-  computed: {}
+  computed: {
+    ...mapGetters ({
+        getUsuarios: 'getUrusarios'
+    })
+  }
 };
 </script>
 

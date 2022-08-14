@@ -6,15 +6,7 @@
         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
           <div class="card-body p-4 p-md-5">
             <!-- errors -->
-            <div v-if="errors.length > 0" class="alert alert-dismissible fade show alert-warning" role="alert" data-mdb-color="danger" id="customxD">
-                  <p class="text-start">Errores detectados:</p>
-                  <ul>
-                    <div>
-                      <li v-for="error in errors" :key="error.index" align="left">{{ error }}</li>
-                      <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                  </ul>
-                </div>
+            
             <!-- inicio de formulario -->
             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registrate Aquí</h3>
             <b-form  @submit.prevent="ValidarUsuario" method="POST" class="formulario">
