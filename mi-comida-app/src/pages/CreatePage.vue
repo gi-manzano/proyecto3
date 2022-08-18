@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
   export default  {
-    name: 'create-component',
+    name: 'createPage',
     props: [],
     
         data () {
@@ -45,28 +45,38 @@ import axios from 'axios';
     },
     methods: {
     async createProduct () {
-      await  axios.post(
-          "https://62efbfad57311485d1278ded.mockapi.io/api/products/products",
-          {
-            title: this.title,
-            description: this.description,
-            price: this.price,
-            amount: this.amount,
-          }
-        ).then(response => {
-          console.log(response);
-          this.$router.push("/admin");
-        }).catch(error => {
-          console.log(error);
-        });
-      }
+      await this.$store.dispatch ("settingProduct", {
+        title: this.title,
+        description: this.description,
+        price: this.price,
+        amount: this.amount
+      }) .then (response => {
+        console.log (response);
+        this.$router.push("/admin");
+      }) .catch (e => {
+        console.log (e);
+      });
+      // await  axios.post(
+      //     "https://62efbfad57311485d1278ded.mockapi.io/api/products/products",
+      //     {
+      //       title: this.title,
+      //       description: this.description,
+      //       price: this.price,
+      //       amount: this.amount,
+      //     }
+      //   ).then(response => {
+      //     console.log(response);
+      //     this.$router.push("/admin");
+      //   }).catch(error => {
+      //     console.log(error);
+      //   });
+      // }
     },
     computed: {
 
     }
+  }
 }
 </script>
 
-<style scoped>
 
-</style>

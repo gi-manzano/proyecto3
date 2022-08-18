@@ -54,6 +54,7 @@ export default {
     if (isAdmin != "true") {
       this.$router.push("/home");
     }
+    this.$store.dispatch ('getProduct');
     let response = await axios.get(
       "https://62efbfad57311485d1278ded.mockapi.io/api/products/products"
     );
@@ -61,7 +62,7 @@ export default {
   },
   methods: {
     editarProducto(id) {
-       /*eslint-disable*/
+       
       this.$router.push( {path: "/admin/edit/" + id} );
     },
      

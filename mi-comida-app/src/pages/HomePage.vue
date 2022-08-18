@@ -2,7 +2,7 @@
 <div class="containter">
   <h1 class="display-2 text-center "> Listado de Menú </h1>
     <div class="row">
-      <div v-for="(item, index) in products" :key="index" class = "col-md-4">
+      <div v-for="(item, index) in this.products" :key="index" class = "col-md-4">
           <div class="card" style="width: 35rem padding: 10px;">
             <div class="card-body">
             <h5 class="card-title">{{item.title}}</h5>
@@ -13,7 +13,7 @@
             <label/>Cantidad en carrito:
             <input type="text" placeholder="cantidad" v-model="item.cantidad"/>
     
-            <button @click="agregarProductoAlCarrito(item.id)" class="btn btn-primary mb-2" type="button">Add carrito</button> 
+            <button @click="addProductoAlCarrito(item.id)" class="btn btn-primary mb-2" type="button">Add carrito</button> 
           </div>
         </div>
       </div>
@@ -28,6 +28,7 @@
 <script>
 
 import axios from "axios"
+import { mapGetters } from 'vuex';
 
 
 export default {
@@ -67,6 +68,11 @@ export default {
       this.$store.dispatch(' addCarrito', payload)
     }
   },
+  computed: {
+    ...mapGetters ({
+      products : 'getProducts'
+    })
+  }
  
 };
  

@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
+import {mapGetters} from 'vuex'
 export default {
   name: "EditarPage",
   props: [],
@@ -44,34 +45,60 @@ export default {
     if (isAdmin != "true") {
       this.$router.push("/home");
     }
-    let id = this.$route.params.id
-    let producto = await axios.get(
-      "https://62efbfad57311485d1278ded.mockapi.io/api/products/products/" + id);
-    this.title= producto.data.title;
-    this.description= producto.data.description;
-    this.price= producto.data.price;
-    this.amount= producto.data.amount;
+      this.$store.dispatch ('getProducts', this.$route.paramas.id);
+      this.showData ();
+      
+    // let id = this.$route.params.id
+    // let producto = await axios.get(
+    //   "https://62efbfad57311485d1278ded.mockapi.io/api/products/products/" + id);
+    // this.title= producto.data.title;
+    // this.description= producto.data.description;
+    // this.price= producto.data.price;
+    // this.amount= producto.data.amount;
+
   },
   methods: {
     async settingProducts() {
-     await axios.put(
-        "https://62efbfad57311485d1278ded.mockapi.io/api/products/products/" + this.$route.params.id,
-       {
+      let id = this.$route.paramas.id;
+      let data = {
         title: this.title,
-        description: this.descripcion,
+        description: this.description,
         price: this.price,
         amount: this.amount,
-       }
-       ).then( response => {
-          console.log(response);
-          this.$router.push("/admin");
-        }) .catch (error => {
-          console.log(error);
+      }
+      await this.$store.dispatch ('settingPRoducts', {id,data})
+      .then (response => {
+        console.log (response);
+        this.$router.push ("/admin");
+        }) .cathc (e => {
+          console.log(e)
         });
+    //  await axios.put(
+    //     "https://62efbfad57311485d1278ded.mockapi.io/api/products/products/" + this.$route.params.id,
+    //    {
+    //     title: this.title,
+    //     description: this.descripcion,
+    //     price: this.price,
+    //     amount: this.amount,
+    //    }
+    //    ).then( response => {
+    //       console.log(response);
+    //       this.$router.push("/admin");
+    //     }) .catch (error => {
+    //       console.log(error);
+    //     });
     },
+    showData () {
+      this.title = this.products.title;
+      this.description = this.products.description;
+      this. price = this.products.price;
+      this.amount = this.products.amount
+    }
   },
   computed: {
-
+      ...mapGetters ({
+        products: 'getProduct'
+      })
   }
 };
 </script>

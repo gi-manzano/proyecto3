@@ -44,7 +44,7 @@ data(){
  };
 },
 async mounted() {
-    /*eslint-disable*/
+ 
     let isLogged = localStorage.getItem("isLogged");
     let isAdmin = localStorage.getItem("isAdmin");
 
