@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="mt-4 pt-2">
-                        <button  @click="validarLogin" class="btn-primary" type="sumbit" value="Login">Login</button>
+                        <button  class="btn-primary" type="sumbit" value="Login">Login</button>
                     </div>
                       <!-- registrarse -->
                       <div class="row mb-4">
@@ -55,8 +55,8 @@
 
 <script>
 
-import axios from "axios";
 import {mapGetters} from 'vuex';
+// import axios from "axios";
 export default {
   name: "LoginPage",
   props: [],
@@ -65,13 +65,18 @@ export default {
     return {
       email: '',
       password: '',
-      usuarios: [],
+      // usuarios: [],
       errors: [],
     }
   },
+  mounted () {
+    
+  },
   methods: {
     validarLogin() {
-      let data = this.usuarios.find((o) => o.email === this.email &&  o.password === this.password); 
+      this.$store.dispatch('login')
+
+      let data = this.getUsuarios.find((o) => o.email === this.email &&  o.password === this.password); 
       localStorage.clear();
 
       if (data) {
@@ -91,13 +96,13 @@ export default {
        }
     },
   },
-  async mounted() {
-    const response = await axios.get("https://62efbfad57311485d1278ded.mockapi.io/api/products/user");
-    this.usuarios = response.data;
-  },
+  // async mounted() {
+  //   const response = await axios.get("https://62efbfad57311485d1278ded.mockapi.io/api/products/user");
+  //   this.usuarios = response.data;
+  // },
   computed: {
     ...mapGetters ({
-        getUsuarios: 'getUrusarios'
+        getUsuarios: 'getUsuarios'
     })
   }
 };

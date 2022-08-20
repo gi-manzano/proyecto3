@@ -23,7 +23,7 @@
         <td>
         <div class="row">
           <button @click="editarProducto(item.id)" class="btn btn-warning bm-1" >Editar</button>
-          <button @click="borrarProducto(item.id)" class="btn btn-danger bm-1" id="delete">Eliminar </button>
+          <button @click="deleteProducts(item.id)" class="btn btn-danger bm-1" id="delete">Eliminar </button>
         </div>
         </td>
       </tr>
@@ -33,14 +33,15 @@
 </template>
 
 <script>
-import axios from "axios";
+import {mapGetters} from 'vuex'
+// import axios from "axios";
 export default {
   name: "AdminPage",
   props: [],
 
   data() {
     return {
-      products: [],
+      
     };
   },
   
@@ -54,29 +55,35 @@ export default {
     if (isAdmin != "true") {
       this.$router.push("/home");
     }
-    this.$store.dispatch ('getProduct');
-    let response = await axios.get(
-      "https://62efbfad57311485d1278ded.mockapi.io/api/products/products"
-    );
-    this.products = response.data;
+    this.$store.dispatch ('showProducts');
+    // let response = await axios.get(
+    //   "https://62efbfad57311485d1278ded.mockapi.io/api/products/products"
+    // );
+    // this.products = response.data;
   },
   methods: {
     editarProducto(id) {
        
       this.$router.push( {path: "/admin/edit/" + id} );
     },
+
+    deleteProducts (id) {
+      this.$store.dispatch ('deleteProducts', id);
+    },
      
-     async borrarProducto(id) {
-            await axios.delete("https://62efbfad57311485d1278ded.mockapi.io/api/products/products/" + id)
-            .then (response => {
-              console.log (response);
-              location.reload ()
-            })
+    //  async borrarProducto(id) {
+    //         await axios.delete("https://62efbfad57311485d1278ded.mockapi.io/api/products/products/" + id)
+    //         .then (response => {
+    //           console.log (response);
+    //           location.reload ()
+    //         })
            
-        }
+    //     }
   },
     computed : {
-      
+      ... mapGetters ({
+        products: 'getProducts'
+      })
     }
 };
 </script>

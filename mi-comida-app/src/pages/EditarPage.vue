@@ -66,7 +66,7 @@ export default {
         price: this.price,
         amount: this.amount,
       }
-      await this.$store.dispatch ('settingPRoducts', {id,data})
+      await this.$store.dispatch ('settingProducts', {id,data})
       .then (response => {
         console.log (response);
         this.$router.push ("/admin");
@@ -97,7 +97,7 @@ export default {
   },
   computed: {
       ...mapGetters ({
-        products: 'getProduct'
+        products: 'getProducts'
       })
   }
 };
