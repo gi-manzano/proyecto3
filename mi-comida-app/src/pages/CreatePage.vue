@@ -9,7 +9,7 @@
             <p class="card-text"> Description:<input type="text" name="description" v-model="description" class="form-control"></p>
             <p class="card-text">Price: <input type="number" name="price" v-model="price" class="form-control"></p>
             <p class="card-text">Amount: <input type="number" name="amount" v-model="amount" class="form-control"></p>
-            <button type="button" class="btn btn-primary" @click="createProduct">Create</button>
+            <button type="button" class="btn btn-primary" @click="createProducts">Create</button>
           </div>
         </div>
       </div>
@@ -19,6 +19,7 @@
 
 <script>
 // import axios from 'axios';
+
   export default  {
     name: 'createPage',
     props: [],
@@ -31,21 +32,22 @@
             amount: '',
           }
         },
+
     mounted () {
       let isLogged = localStorage.getItem("isLogged");
       let isAdmin = localStorage.getItem("isAdmin");
 
       if (isLogged != "true") {
-        this.$router.push("/login");
+        this.$router.push('/login');
       }
       if (isAdmin != "true") {
-        this.$router.push("/home");
+        this.$router.push('/home');
       }
       
     },
     methods: {
-    async createProduct () {
-      await this.$store.dispatch ("settingProduct", {
+    async createProducts () {
+      await this.$store.dispatch ("settingProducts", {
         title: this.title,
         description: this.description,
         price: this.price,
@@ -56,21 +58,7 @@
       }) .catch (e => {
         console.log (e);
       });
-      // await  axios.post(
-      //     "https://62efbfad57311485d1278ded.mockapi.io/api/products/products",
-      //     {
-      //       title: this.title,
-      //       description: this.description,
-      //       price: this.price,
-      //       amount: this.amount,
-      //     }
-      //   ).then(response => {
-      //     console.log(response);
-      //     this.$router.push("/admin");
-      //   }).catch(error => {
-      //     console.log(error);
-      //   });
-      // }
+     
     },
     computed: {
 

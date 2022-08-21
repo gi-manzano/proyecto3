@@ -1,10 +1,10 @@
 <template lang="html">
   <section class="carrito-component">
-    <div class="carrito-card">
+    <div class="carrito-card card">
       <h1>{{ $store.state.msg }}</h1>   
         <h2>Carrito 🛍</h2>
       <ul>
-        <li v-for="(item, index) in $store.state.carrito" :key="index">
+        <li v-for="(item, index) in this.carrito" :key="index" class="card mb-3">
           {{item.titulo}} - {{item.cantidadCarrito}}
           <p>${{item.precio}}</p>
           <button class="btn btn-success mx-2" 
@@ -29,21 +29,22 @@
 </template>
 
 <script>
-import axios from "axios";
+import {mapGetters} from 'vuex'
+// import axios from "axios";
 export default {
 name:'CarritoPage',
 data(){
  return {
-  cantidadCarrito: 0,
-  product: {
-    title: '',
-    description: '',
-    amount: '',
-    price: 0
-  }
+  // cantidadCarrito: 0,
+  // product: {
+  //   title: '',
+  //   description: '',
+  //   amount: '',
+  //   price: 0
+  // }
  };
 },
-async mounted() {
+mounted() {
  
     let isLogged = localStorage.getItem("isLogged");
     let isAdmin = localStorage.getItem("isAdmin");
@@ -53,13 +54,13 @@ async mounted() {
     }
 
     if (isAdmin != "true") {
-      this.$router.push("/main");
+      this.$router.push("/home");
     }
-    let paramId = this.$route.params.id
-    let resp = await axios.get(
-      "https://62efbfad57311485d1278ded.mockapi.io/api/products/products" + paramId
-    );
-    this.product = resp.data;
+    // let paramId = this.$route.params.id
+    // let response = await axios.get(
+    //   "https://62efbfad57311485d1278ded.mockapi.io/api/products/products" + paramId
+    // );
+    // this.product = response.data;
   },
 methods:{
     sumarUno(){
@@ -81,6 +82,11 @@ methods:{
       alert('Buen trabajo!! compra finalziada.')
     },
   },
+  computed : {
+    ...mapGetters ({
+      carrito: 'carrito'
+    })
+  }
 };
 </script>
 

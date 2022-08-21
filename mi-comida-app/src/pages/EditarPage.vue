@@ -45,7 +45,7 @@ export default {
     if (isAdmin != "true") {
       this.$router.push("/home");
     }
-      this.$store.dispatch ('getProducts', this.$route.paramas.id);
+      this.$store.dispatch ('getOnePoducts', this.$route.paramas.id);
       this.showData ();
       
     // let id = this.$route.params.id
@@ -66,7 +66,7 @@ export default {
         price: this.price,
         amount: this.amount,
       }
-      await this.$store.dispatch ('settingProducts', {id,data})
+      await this.$store.dispatch ('editProducts', {id,data})
       .then (response => {
         console.log (response);
         this.$router.push ("/admin");
@@ -97,7 +97,7 @@ export default {
   },
   computed: {
       ...mapGetters ({
-        products: 'getProducts'
+        products: 'getOneProducts'
       })
   }
 };

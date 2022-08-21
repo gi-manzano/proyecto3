@@ -43,6 +43,11 @@
             </a>
           </div>
         </div>
+        <div class="d-flex align-items-center">
+            <a class="text-reset me-3" @click="Usuario" href="/carrito">
+            <i class="fas fa-shopping-cart"></i>
+            </a>
+        </div>
       </div>
     </nav>
 </section>

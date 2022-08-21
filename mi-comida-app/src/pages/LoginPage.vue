@@ -5,11 +5,9 @@
       <div class="col-12 col-lg-9 col-xl-7">
         <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
           <div class="card-body p-4 p-md-5 ">
-
-
             <!-- inicio de formulario -->
             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Mi Comida App</h3>
-              <form @sumbit.prevent="validarLogin">
+              <form @sumbit.prevent="login">
                 <div class="row">
                     <div class="col-md-12 mb-4">
                       <!-- email -->
@@ -66,14 +64,13 @@ export default {
       email: '',
       password: '',
       // usuarios: [],
-      errors: [],
+      // errors: [],
     }
   },
-  mounted () {
-    
-  },
+  mounted () { },
+
   methods: {
-    validarLogin() {
+    login() {
       this.$store.dispatch('login')
 
       let data = this.getUsuarios.find((o) => o.email === this.email &&  o.password === this.password); 
@@ -82,7 +79,7 @@ export default {
       if (data) {
         this.$store.commit ('SET_CURRENT_USUARIOS', data)
         localStorage.setItem("isLogged", "true");
-        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("usuarios", JSON.stringify(data));
 
         if (data?.isAdmin) {
           localStorage.setItem("isAdmin", "true");
@@ -96,10 +93,6 @@ export default {
        }
     },
   },
-  // async mounted() {
-  //   const response = await axios.get("https://62efbfad57311485d1278ded.mockapi.io/api/products/user");
-  //   this.usuarios = response.data;
-  // },
   computed: {
     ...mapGetters ({
         getUsuarios: 'getUsuarios'

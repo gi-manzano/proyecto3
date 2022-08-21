@@ -13,7 +13,7 @@
                  </tr>
             </thead>
           <tbody>
-      <tr v-for="(item, index) in products" :key="index">
+      <tr v-for="(item, index) in this.products" :key="index">
         <td><b>{{ item.title }}</b></td>
         <td><b>{{item.descripcion }}</b></td>
         <td>${{ item.price }}</td>
@@ -34,7 +34,6 @@
 
 <script>
 import {mapGetters} from 'vuex'
-// import axios from "axios";
 export default {
   name: "AdminPage",
   props: [],
@@ -56,10 +55,7 @@ export default {
       this.$router.push("/home");
     }
     this.$store.dispatch ('showProducts');
-    // let response = await axios.get(
-    //   "https://62efbfad57311485d1278ded.mockapi.io/api/products/products"
-    // );
-    // this.products = response.data;
+  
   },
   methods: {
     editarProducto(id) {
@@ -71,14 +67,7 @@ export default {
       this.$store.dispatch ('deleteProducts', id);
     },
      
-    //  async borrarProducto(id) {
-    //         await axios.delete("https://62efbfad57311485d1278ded.mockapi.io/api/products/products/" + id)
-    //         .then (response => {
-    //           console.log (response);
-    //           location.reload ()
-    //         })
-           
-    //     }
+  
   },
     computed : {
       ... mapGetters ({

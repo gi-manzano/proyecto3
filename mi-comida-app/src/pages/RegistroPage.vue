@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import axios from "axios";
+
 export default {
   
   name: " RegistroPage",
@@ -85,17 +85,15 @@ export default {
     };
   },
   methods: {
-    async EnviarData() {
+   EnviarData() {
       let data = {
         name: this.name,
         password: this.password,
         email: this.email,
         isAdmin: false,
       };
-      let response = await axios.post(
-        "https://62efbfad57311485d1278ded.mockapi.io/api/products/user",data);
-      this.usuarios = response.data;
-      this.$router.push('/login');
+       this.$store.dispatch ('registro', data)
+       this.$router.push('/login');
     },
     //  checkForm () {return (this.validarNombre() && this.validarMail() && this.validarEdad() && this.validarPassword())},
         

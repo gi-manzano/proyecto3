@@ -12,15 +12,12 @@
             <label/>Cantidad en carrito:
             <input type="text" placeholder="cantidad" v-model="item.cantidad"/>
     
-            <button @click="addToCarrito (item.id)" class="btn btn-primary mb-2" type="button">Add carrito</button> 
+            <button @click="addToCarrito (item)" class="btn btn-primary mb-2" type="button">Add carrito</button> 
           </div>
         </div>
       </div>
     </div>
-    <!-- <div class="card mb-6">
-        <h1>Tu carrito:</h1>
-        {{ $store.getters.carrito }}
-    </div> -->
+   
 </div>
 </template>
 
@@ -44,13 +41,10 @@ export default {
   async mounted() {
     let isLogged = localStorage.getItem("isLogged");
     if (isLogged != "true") {
-      this.$router.push("/login");
+      this.$router.push("/home");
     }
     this.$store.dispatch('showProducts')
-    // let response = await axios.get(
-    //   "https://62efbfad57311485d1278ded.mockapi.io/api/products/products"
-    // );
-    // this.products = response.data;
+   
 
   
   },
@@ -62,7 +56,7 @@ export default {
       let payload = {
         productId: item.id,
         amount: item.cantidad,
-        usuarioId: this.auth.id,
+      
       }
       this.$store.dispatch(' addToCarrito', payload);
     }
@@ -70,7 +64,7 @@ export default {
   computed: {
     ...mapGetters ({
       products : 'getProducts',
-      auth: 'auth'
+     
     })
   }
  

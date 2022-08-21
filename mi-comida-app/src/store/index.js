@@ -93,37 +93,41 @@ export default new Vuex.Store ({
  },
 
     actions: {
-      // register
+      // register --usuario
       async postRegistro (payload) {
         try {
-          await axios.post ("https://62efbfad57311485d1278ded.mockapi.io/api/products/user",payload)
-        } catch (e) {
-          console.log(e)
+          await axios.post ("https://62efbfad57311485d1278ded.mockapi.io/api/products/user", payload)
+        } catch (error) {
+          console.log(error)
         }
       },
-      // login
+      // login --usuario
       async getLogin (contex) {
         try {
           let response = await axios.get ("https://62efbfad57311485d1278ded.mockapi.io/api/products/user")
           contex.commit ('ADD_USUARIOS', response.data)
-        } catch (e) {
-          console.log(e)
+        } catch (error) {
+          console.log(error)
         }
       },
 
-    //  get carrito --usuario
-      async getCarrito (context) {
-        let response = await axios.get (`https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito`) 
-        let data = response.data
-        context.commit('SET_CARRITO', data)
-      },
-      // add carrito --usuario
+      // add carrito --carrito
       async addToCarrito (context, carrito){
         try {
         let response = await axios.post (`https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito`, carrito)
         context.commit ('ADD_TO_CARRITO', response.data)
-        } catch (e) {
-          console.log(e)
+        } catch (error) {
+          console.log(error)
+        }
+      },
+       // get all carrito --carrito
+       async getAllCarrito (context,) {
+        try {
+          let response = await axios.get (`https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito`)
+          let data = response.data
+          context.commit ('SET_CARRITO', data)
+        } catch (error) {
+          console.log (error)
         }
       },
       // delete product carrito --usuario
@@ -133,42 +137,34 @@ export default new Vuex.Store ({
           console.log(response);
           location.reload ()
         })
-        .catch (e => {
-          console.log (e);
+        .catch (error => {
+          console.log (error);
         })
       },
-       // get all carrito --admin
-       async getAllCarrito (context,) {
-        try {
-          let response = await axios.get (`https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito`)
-          let data = response.data
-          context.commit ('SET_CARRITO', data)
-        } catch (e) {
-          console.log (e)
-        }
-      },
+      
 
       // get/show product --admin
       async showProducts (context) {
         try {
           let response = await axios.get ('https://62efbfad57311485d1278ded.mockapi.io/api/products/products')
           context.commit('ADD_PRODUCTS', response.data)
-        } catch(e) {
-          console.log(e)
+        } catch(error) {
+          console.log(error)
         }
       },
       // edit product --admin
       async editProduct ( contex,payload) {
         console.log(payload)
         try {
+          
           await axios.put('https://62efbfad57311485d1278ded.mockapi.io/api/products/products' + payload.id, {
             title: payload.data.title,
             description: payload.data.description,
             price: payload.data.price,
             amoutn: payload.data.amount
           })
-        }catch (e) {
-          console.log(e)
+        } catch (error) {
+          console.log(error)
         }
       },
 
@@ -182,14 +178,18 @@ export default new Vuex.Store ({
             price: payload.price,
             amount: payload.amount
           })
-        } catch (e) {console.log(e)}
+        } catch (error) {
+          console.log(error)
+        }
       },
 
       async getOneProdcuts (context, payload) {
-        let response = axios.get ("https://62efbfad57311485d1278ded.mockapi.io/api/products/products" + payload)
-        context.commit ('SAVE_ONE_PRODUCTS', response.data)
-      }, catch (e) {
-        console.log (e)
+        try {
+          let response = axios.get ("https://62efbfad57311485d1278ded.mockapi.io/api/products/products" + payload)
+          context.commit ('SAVE_ONE_PRODUCTS', response.data)
+        } catch (error) {
+          console.log (error)
+        }
       }
 
      
