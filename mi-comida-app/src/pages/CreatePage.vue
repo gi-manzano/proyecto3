@@ -22,7 +22,6 @@
 
   export default  {
     name: 'createPage',
-    props: [],
     
         data () {
           return {
@@ -41,7 +40,7 @@
         this.$router.push('/login');
       }
       if (isAdmin != "true") {
-        this.$router.push('/home');
+        this.$router.push('/admin/create');
       }
       
     },

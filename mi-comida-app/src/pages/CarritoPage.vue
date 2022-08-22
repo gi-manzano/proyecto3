@@ -17,12 +17,13 @@
       </ul>
         <h1>Productos</h1>
       <ul>
-        <li v-for="(item, index) in $store.state.products" :key="index" @click="agregarProductoAlCarrito(item.id)">{{ item.name }}>
+        <li v-for="(item, index) in this.products" :key="index" @click="agregarProductoAlCarrito(item.id)">{{ item.name }}>
         </li>
       </ul>
          <button class="btn"><p class="text-center">Precio Total: $ {{precioTotal}}</p></button>
           <input class="btn btn-success mx-2"
-          @click="comprar ()" value="pagar"/>
+          @click="comprar ()" value="Comprar"/>
+          <router-link to="/home" class='btn btn-warning mt-2'>Atras</router-link>
           <hr>
       </div>
   </section>
@@ -35,13 +36,13 @@ export default {
 name:'CarritoPage',
 data(){
  return {
-  // cantidadCarrito: 0,
-  // product: {
-  //   title: '',
-  //   description: '',
-  //   amount: '',
-  //   price: 0
-  // }
+  cantidadCarrito: 0,
+  product: {
+    title: '',
+    description: '',
+    amount: '',
+    price: 0
+  }
  };
 },
 mounted() {
@@ -50,11 +51,11 @@ mounted() {
     let isAdmin = localStorage.getItem("isAdmin");
 
     if (isLogged != "true") {
-      this.$router.push("/login");
+      this.$router.push("/home");
     }
 
     if (isAdmin != "true") {
-      this.$router.push("/home");
+      this.$router.push("/carrito");
     }
     // let paramId = this.$route.params.id
     // let response = await axios.get(
@@ -74,17 +75,17 @@ methods:{
     },   
     agregarProductoAlCarrito(payload) {
       let o = { ...payload, cantidadCarrito: 1 };
-      this.$store.commit("agregarAlCarrito", o);
+      this.$store.commit("addToCarrito", o);
     },
-    async Comprar() {
+    Comprar() {
         "https://62efbfad57311485d1278ded.mockapi.io/api/products/products" + this.$route.params.id,
-        this.product
+        this.products
       alert('Buen trabajo!! compra finalziada.')
     },
   },
   computed : {
     ...mapGetters ({
-      carrito: 'carrito'
+      carrito: 'addToCarrito'
     })
   }
 };

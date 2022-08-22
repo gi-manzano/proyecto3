@@ -62,7 +62,7 @@
     },
     data () {
       return {
-        user: [],
+        usuario: [],
       }
     },
     methods: {

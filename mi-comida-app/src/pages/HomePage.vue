@@ -12,7 +12,7 @@
             <label/>Cantidad en carrito:
             <input type="text" placeholder="cantidad" v-model="item.cantidad"/>
     
-            <button @click="addToCarrito (item)" class="btn btn-primary mb-2" type="button">Add carrito</button> 
+            <button @click="addToCarrito (item.id)" class="btn btn-primary mb-2" type="button">Add carrito</button> 
           </div>
         </div>
       </div>
@@ -33,8 +33,8 @@ export default {
 
     data () {
       return {
-        // products: [],
-        // carito: []
+       
+       text: 'products',
       }
     },
   

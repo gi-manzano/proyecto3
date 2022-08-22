@@ -24,7 +24,6 @@
 import {mapGetters} from 'vuex'
 export default {
   name: "EditarPage",
-  props: [],
 
   data() {
     return {
@@ -32,6 +31,7 @@ export default {
      description: '',
      price: '',
      amount: '',
+    
     }
   },
   async mounted() {
@@ -43,50 +43,31 @@ export default {
     }
 
     if (isAdmin != "true") {
-      this.$router.push("/home");
+      this.$router.push("/admin/edit");
     }
-      this.$store.dispatch ('getOnePoducts', this.$route.paramas.id);
+      this.$store.dispatch ('getOneProducts', this.$route.params.id);
       this.showData ();
       
-    // let id = this.$route.params.id
-    // let producto = await axios.get(
-    //   "https://62efbfad57311485d1278ded.mockapi.io/api/products/products/" + id);
-    // this.title= producto.data.title;
-    // this.description= producto.data.description;
-    // this.price= producto.data.price;
-    // this.amount= producto.data.amount;
+    
 
   },
   methods: {
     async settingProducts() {
-      let id = this.$route.paramas.id;
+      let id = this.$route.params.id;
       let data = {
         title: this.title,
         description: this.description,
         price: this.price,
         amount: this.amount,
       }
-      await this.$store.dispatch ('editProducts', {id,data})
+      await this.$store.dispatch ('settingProducts', {id,data})
       .then (response => {
         console.log (response);
-        this.$router.push ("/admin");
+        this.$router.push ("/admin/edit/");
         }) .cathc (e => {
           console.log(e)
         });
-    //  await axios.put(
-    //     "https://62efbfad57311485d1278ded.mockapi.io/api/products/products/" + this.$route.params.id,
-    //    {
-    //     title: this.title,
-    //     description: this.descripcion,
-    //     price: this.price,
-    //     amount: this.amount,
-    //    }
-    //    ).then( response => {
-    //       console.log(response);
-    //       this.$router.push("/admin");
-    //     }) .catch (error => {
-    //       console.log(error);
-    //     });
+   
     },
     showData () {
       this.title = this.products.title;

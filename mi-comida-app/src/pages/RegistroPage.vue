@@ -92,7 +92,7 @@ export default {
         email: this.email,
         isAdmin: false,
       };
-       this.$store.dispatch ('registro', data)
+       this.$store.dispatch ('postRegistro', data)
        this.$router.push('/login');
     },
     //  checkForm () {return (this.validarNombre() && this.validarMail() && this.validarEdad() && this.validarPassword())},
@@ -121,11 +121,13 @@ export default {
           }
           // error de datos
           if (this.errors.length > 0){
-              a.preventDataful ();
+              a.preventDatafault ();
           } else {
             this.EnviarData ();
           }
-        }
+        
+        },
+        computed :{},
   },
 };
 </script>

@@ -30,17 +30,20 @@
                         name="password" 
                         v-model="password"/>
                       </div>
+                     
                     </div>
 
                     <div class="mt-4 pt-2">
-                        <button  class="btn-primary" type="sumbit" value="Login">Login</button>
+                        <button type="sumbit" class="btn btn-primary mb-4">Loguin</button>
                     </div>
+                   
                       <!-- registrarse -->
                       <div class="row mb-4">
                         <div class="col">
                           <router-link to="/registro" class="text-primary justify-content-end" style="margin-left: 70%;"> No estas registrado? </router-link>
                         </div>
                       </div>
+                      
                 </div>
               </form> 
           </div>
@@ -54,26 +57,28 @@
 <script>
 
 import {mapGetters} from 'vuex';
-// import axios from "axios";
+
 export default {
   name: "LoginPage",
   props: [],
+
+  mounted () { },
 
   data() {
     return {
       email: '',
       password: '',
-      // usuarios: [],
-      // errors: [],
+      errors: []
     }
   },
-  mounted () { },
 
   methods: {
     login() {
+      
       this.$store.dispatch('login')
 
-      let data = this.getUsuarios.find((o) => o.email === this.email &&  o.password === this.password); 
+      let data = this.getUsuarios.find((o) => o.email === this.email &&  o.password === this.password);
+      if (!data) { this.erorr_login = true }
       localStorage.clear();
 
       if (data) {
@@ -87,16 +92,14 @@ export default {
         } else {
           localStorage.setItem("isAdmin", "false");
           this.$router.push("/home");
-        } 
-       } else {
-        this.errors.push ("Usuario o password no válidos")
-       }
-    },
+        }
+      } else {
+        this.errors.push ('Usuario o password no valido')
+      }
+    }
   },
   computed: {
-    ...mapGetters ({
-        getUsuarios: 'getUsuarios'
-    })
+    ...mapGetters ({getUsuarios: 'getUsuarios'})
   }
 };
 </script>

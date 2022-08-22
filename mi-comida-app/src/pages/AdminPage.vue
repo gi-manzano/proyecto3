@@ -52,7 +52,7 @@ export default {
       this.$router.push("/login");
     }
     if (isAdmin != "true") {
-      this.$router.push("/home");
+      this.$router.push("/admin");
     }
     this.$store.dispatch ('showProducts');
   
@@ -60,9 +60,9 @@ export default {
   methods: {
     editarProducto(id) {
        
-      this.$router.push( {path: "/admin/edit/" + id} );
+      this.$router.push( {path: "/admin/edit/" + id});
     },
-
+    
     deleteProducts (id) {
       this.$store.dispatch ('deleteProducts', id);
     },

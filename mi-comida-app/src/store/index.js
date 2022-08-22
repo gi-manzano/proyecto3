@@ -11,6 +11,7 @@ export default new Vuex.Store ({
         carrito: [],
         products: [],
         usuarios: [],
+        usuario: '',
         products_edit: [],
         name: '',
         email: '',
@@ -22,37 +23,26 @@ export default new Vuex.Store ({
     getters: {
       // getters usuarios
       getUsuarios: (state) => {
-        return state.usuarios
+        return state.usuarios;
       },
       // getters products
       getProducts: (state) => {
-        return state.products
+        return state.products;
       },
       // getters edit prodcuts
       getEditProduct: (state) => {
-        return state.products_edit
+        return state.products_edit;
       },
       // getters Usuario logeado
       getUserLogged : (state) => {
-        return state.user_loged
+        return state.user_loged;
       },
       // getters carrito
       carrito (state) {
-        let productos = state.products
-        let carrito = state.carrito.filter (o => o.usuarioId === state.currentUsuarios.id)
-        let localCarrito = []
-        carrito.map (item => {
-          let currentProducts = productos.filter (o => o.id == item.productId)
-          localCarrito.push ({
-            amount: item.amount,
-            producTitle : currentProducts [0]?.title,
-            price: currentProducts [0]?.price
-          })
-        }) 
-        return localCarrito
+        return state.carrito.filter (o => o.usuarioId === state.currentUsuarios.getEditProduct);
       },
       auth (state) {
-        return state.currentUsuarios
+        return state.currentUsuarios;
       }
     },
 
@@ -79,8 +69,8 @@ export default new Vuex.Store ({
         state.carrito = carrito;
        },
       //  add carrito
-       ADD_TO_CARRITO: (state, products) => {
-        state.carrito.unshift (products);
+       ADD_TO_CARRITO: (state, carrito) => {
+        state.carrito.unshift (carrito);
        },
       //  remove carrito
        REMOVE_CARRITO : (state, products) => {
@@ -94,18 +84,18 @@ export default new Vuex.Store ({
 
     actions: {
       // register --usuario
-      async postRegistro (payload) {
+      async postRegistro (context, newUsuario) {
         try {
-          await axios.post ("https://62efbfad57311485d1278ded.mockapi.io/api/products/user", payload)
+          await axios.post ("https://62efbfad57311485d1278ded.mockapi.io/api/products/user", newUsuario)
         } catch (error) {
           console.log(error)
         }
       },
       // login --usuario
-      async getLogin (contex) {
+      async getLogin (context) {
         try {
           let response = await axios.get ("https://62efbfad57311485d1278ded.mockapi.io/api/products/user")
-          contex.commit ('ADD_USUARIOS', response.data)
+          context.commit ('ADD_USUARIOS', response.data)
         } catch (error) {
           console.log(error)
         }
@@ -114,16 +104,16 @@ export default new Vuex.Store ({
       // add carrito --carrito
       async addToCarrito (context, carrito){
         try {
-        let response = await axios.post (`https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito`, carrito)
+        let response = await axios.post ("https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito", carrito)
         context.commit ('ADD_TO_CARRITO', response.data)
         } catch (error) {
           console.log(error)
         }
       },
        // get all carrito --carrito
-       async getAllCarrito (context,) {
+       async getAllCarrito (context) {
         try {
-          let response = await axios.get (`https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito`)
+          let response = await axios.get ("https://62efbfad57311485d1278ded.mockapi.io/api/products/carrito")
           let data = response.data
           context.commit ('SET_CARRITO', data)
         } catch (error) {
@@ -131,7 +121,7 @@ export default new Vuex.Store ({
         }
       },
       // delete product carrito --usuario
-      async deleteProducts ( payload) {
+      async deleteProducts ( context,payload) {
         await axios.delete ('https://62efbfad57311485d1278ded.mockapi.io/api/products/products/' + payload)
         .then (response => {
           console.log(response);
@@ -153,7 +143,7 @@ export default new Vuex.Store ({
         }
       },
       // edit product --admin
-      async editProduct ( contex,payload) {
+      async editProduct ( context,payload) {
         console.log(payload)
         try {
           
@@ -169,7 +159,7 @@ export default new Vuex.Store ({
       },
 
       // create product --admin
-      async settingProducts (contex, payload) {
+      async settingProducts (context, payload) {
         console.log(payload)
         try {
           await axios.post ("https://62efbfad57311485d1278ded.mockapi.io/api/products/products", {
@@ -183,7 +173,7 @@ export default new Vuex.Store ({
         }
       },
 
-      async getOneProdcuts (context, payload) {
+      async getOneProducts (context, payload) {
         try {
           let response = axios.get ("https://62efbfad57311485d1278ded.mockapi.io/api/products/products" + payload)
           context.commit ('SAVE_ONE_PRODUCTS', response.data)
