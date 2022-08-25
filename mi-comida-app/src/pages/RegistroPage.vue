@@ -16,6 +16,7 @@
                   <div class="form-outline">
                     <label class="form-label" for="firstName">Usuario</label>
                     <input 
+                    
                     type="text"  
                     v-model="name"
                     id="inline-form-input.name"
@@ -29,7 +30,8 @@
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="firstName">Email</label>
-                    <input 
+                    <input
+                    
                     type="text" 
                     v-model="email"
                     id="firstName" 
@@ -44,6 +46,7 @@
                   <div class="form-outline">
                     <label class="form-label" for="password">Password</label>
                     <input 
+                   
                     type="password" 
                     v-model="password"
                     name="password" 
@@ -68,13 +71,14 @@
 
 <script>
 
+
 export default {
   
   name: " RegistroPage",
   props: [],
-  mounted () {
+  // mounted () {
 
-  },
+  // },
   data() {
     return {
       
@@ -92,12 +96,13 @@ export default {
         email: this.email,
         isAdmin: false,
       };
+    
        this.$store.dispatch ('postRegistro', data)
        this.$router.push('/login');
     },
     //  checkForm () {return (this.validarNombre() && this.validarMail() && this.validarEdad() && this.validarPassword())},
         
-        ValidarUsuario (a) {
+        ValidarUsuario (e) {
           this.errors = [];
           let nameRegex= /^[a-zA-Z]{3,}$/;
           let emailRegex= /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -106,6 +111,8 @@ export default {
             this.errors.push ('Nombre de usuario requerido!');
           } else if (!nameRegex.test (this.name)) {
             this.errors.push ('Usuario no valido')
+          } else if (this.name.length > 15) {
+            this.errors.push ('15 caracteres como maximo')
           }
           // email usuario
           if (!this.email) {
@@ -121,13 +128,15 @@ export default {
           }
           // error de datos
           if (this.errors.length > 0){
-              a.preventDatafault ();
+              e.preventDatafault ();
           } else {
             this.EnviarData ();
           }
         
         },
-        computed :{},
+        computed :{
+       
+        },
   },
 };
 </script>

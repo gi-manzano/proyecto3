@@ -22,7 +22,7 @@
         <td v-else>{{ item.amount }}</td>
         <td>
         <div class="row">
-          <button @click="editarProducto(item.id)" class="btn btn-warning bm-1" >Editar</button>
+          <button @click="editarProduct(item.id)" class="btn btn-warning bm-1" >Editar</button>
           <button @click="deleteProducts(item.id)" class="btn btn-danger bm-1" id="delete">Eliminar </button>
         </div>
         </td>
@@ -58,7 +58,7 @@ export default {
   
   },
   methods: {
-    editarProducto(id) {
+    editarProduct(id) {
        
       this.$router.push( {path: "/admin/edit/" + id});
     },

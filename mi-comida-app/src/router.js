@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import router from 'vue-router'
-
 import LoginPage from './pages/LoginPage.vue';
 import ResigstroPage from './pages/RegistroPage.vue'
 import HomePage from './pages/HomePage.vue';
@@ -24,7 +23,6 @@ export default new router({
     {path: '/home/:id',component: HomePage ,props: true},
     {path: '/admin', component: AdminPage, props: true},
     {path: '/admin/create', component: CreatePage, props: true, name: 'create'},
-    {path: '/admin/edit', component: EditarPage, props: true},
     {path: '/admin/edit/:id', component: EditarPage, props: true},
     {path: '/carrito', component: CarritoPage, props: true},
     {path: '/carrito/:id', component: CarritoPage, props: true},

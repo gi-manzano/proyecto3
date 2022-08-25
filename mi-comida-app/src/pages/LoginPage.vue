@@ -7,7 +7,7 @@
           <div class="card-body p-4 p-md-5 ">
             <!-- inicio de formulario -->
             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Mi Comida App</h3>
-              <form @sumbit.prevent="login">
+              <form @sumbit.prevent="getLogin">
                 <div class="row">
                     <div class="col-md-12 mb-4">
                       <!-- email -->
@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="mt-4 pt-2">
-                        <button type="sumbit" class="btn btn-primary mb-4">Loguin</button>
+                        <button  @click="getLogin" type="sumbit" class="btn btn-primary mb-4">Login</button>
                     </div>
                    
                       <!-- registrarse -->
@@ -68,17 +68,16 @@ export default {
     return {
       email: '',
       password: '',
-      errors: []
+      error: [],
+     
     }
   },
 
   methods: {
-    login() {
-      
-      this.$store.dispatch('login')
 
-      let data = this.getUsuarios.find((o) => o.email === this.email &&  o.password === this.password);
-      if (!data) { this.erorr_login = true }
+     getLogin() {
+      this.$store.dispatch('getLogin', this.$route.params.getUsuarios)
+      let data = this.getUsuarios.find((x) => x.email === this.email &&  x.password === this.password);
       localStorage.clear();
 
       if (data) {
@@ -94,12 +93,14 @@ export default {
           this.$router.push("/home");
         }
       } else {
-        this.errors.push ('Usuario o password no valido')
+        this.errors.push('Usuario o password no valido')
       }
     }
   },
   computed: {
-    ...mapGetters ({getUsuarios: 'getUsuarios'})
+    ...mapGetters ({
+      getUsuarios: 'getUsuarios'
+      })
   }
 };
 </script>

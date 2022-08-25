@@ -12,7 +12,7 @@
             <label/>Cantidad en carrito:
             <input type="text" placeholder="cantidad" v-model="item.cantidad"/>
     
-            <button @click="addToCarrito (item.id)" class="btn btn-primary mb-2" type="button">Add carrito</button> 
+            <button @click="addToCarrito (item)" class="btn btn-primary mb-2" type="button">Add carrito</button> 
           </div>
         </div>
       </div>
@@ -26,7 +26,6 @@
 // import axios from "axios"
 import { mapGetters } from 'vuex';
 
-
 export default {
   name: "HomePage",
   props: [],
@@ -34,14 +33,15 @@ export default {
     data () {
       return {
        
-       text: 'products',
+      //  text: 'products',
       }
     },
   
   async mounted() {
     let isLogged = localStorage.getItem("isLogged");
+
     if (isLogged != "true") {
-      this.$router.push("/home");
+      this.$router.push("/login");
     }
     this.$store.dispatch('showProducts')
    
@@ -56,6 +56,7 @@ export default {
       let payload = {
         productId: item.id,
         amount: item.cantidad,
+        usuarioId: this.auth.id
       
       }
       this.$store.dispatch(' addToCarrito', payload);
@@ -64,6 +65,7 @@ export default {
   computed: {
     ...mapGetters ({
       products : 'getProducts',
+      auth: 'auth'
      
     })
   }

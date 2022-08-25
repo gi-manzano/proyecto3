@@ -11,10 +11,10 @@
           data-mdb-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+          aria-label="Toggle navigation">
           <i class="fas fa-bars"></i>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <a class="navbar-brand mt-2 mt-lg-0" href="#">
             <img src="../assets/comida-logo.png" height="30" alt="MDB Logo" loading="lazy"/>
@@ -24,18 +24,18 @@
             <li class="nav-item">
               <a class="nav-link" href="/home">Home</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="/registro">Registrate</a>
-            </li>
-            <li class="nav-item">
+            </li> -->
+            <!-- <li class="nav-item">
               <a class="nav-link" href="/admin">Admin</a>
-            </li>
+            </li> -->
           </ul>
          
         </div>
         <div class="d-flex align-items-center">
           
-          <a class="text-reset me-3" @click="Usuario">
+          <a class="text-reset me-3" @click="Usuario" href="/carrito">
             <i class="fas fa-shopping-cart"></i>
           </a>
           <div class="dropdown">
@@ -43,11 +43,11 @@
             </a>
           </div>
         </div>
-        <div class="d-flex align-items-center">
+        <!-- <div class="d-flex align-items-center">
             <a class="text-reset me-3" @click="Usuario" href="/carrito">
             <i class="fas fa-shopping-cart"></i>
             </a>
-        </div>
+        </div> -->
       </div>
     </nav>
 </section>

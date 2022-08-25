@@ -43,7 +43,7 @@ export default {
     }
 
     if (isAdmin != "true") {
-      this.$router.push("/admin/edit");
+      this.$router.push("/admin/edit/:id");
     }
       this.$store.dispatch ('getOneProducts', this.$route.params.id);
       this.showData ();
@@ -52,7 +52,7 @@ export default {
 
   },
   methods: {
-    async settingProducts() {
+    async editProduct() {
       let id = this.$route.params.id;
       let data = {
         title: this.title,
@@ -60,10 +60,10 @@ export default {
         price: this.price,
         amount: this.amount,
       }
-      await this.$store.dispatch ('settingProducts', {id,data})
+      await this.$store.dispatch ('editProduct', {id,data})
       .then (response => {
         console.log (response);
-        this.$router.push ("/admin/edit/");
+        this.$router.push ("/admin");
         }) .cathc (e => {
           console.log(e)
         });

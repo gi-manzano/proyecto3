@@ -30,7 +30,7 @@ export default new Vuex.Store ({
         return state.products;
       },
       // getters edit prodcuts
-      getEditProduct: (state) => {
+      getEditarProduct: (state) => {
         return state.products_edit;
       },
       // getters Usuario logeado
@@ -84,9 +84,9 @@ export default new Vuex.Store ({
 
     actions: {
       // register --usuario
-      async postRegistro (context, newUsuario) {
+      async postRegistro (payload) {
         try {
-          await axios.post ("https://62efbfad57311485d1278ded.mockapi.io/api/products/user", newUsuario)
+          await axios.post ('https://62efbfad57311485d1278ded.mockapi.io/api/products/user', payload)
         } catch (error) {
           console.log(error)
         }
@@ -94,7 +94,7 @@ export default new Vuex.Store ({
       // login --usuario
       async getLogin (context) {
         try {
-          let response = await axios.get ("https://62efbfad57311485d1278ded.mockapi.io/api/products/user")
+          let response = await axios.get ('https://62efbfad57311485d1278ded.mockapi.io/api/products/user')
           context.commit ('ADD_USUARIOS', response.data)
         } catch (error) {
           console.log(error)
@@ -136,18 +136,18 @@ export default new Vuex.Store ({
       // get/show product --admin
       async showProducts (context) {
         try {
-          let response = await axios.get ('https://62efbfad57311485d1278ded.mockapi.io/api/products/products')
+          let response = await axios.get ("https://62efbfad57311485d1278ded.mockapi.io/api/products/products")
           context.commit('ADD_PRODUCTS', response.data)
         } catch(error) {
           console.log(error)
         }
       },
       // edit product --admin
-      async editProduct ( context,payload) {
+      async editarProduct ( payload) {
         console.log(payload)
         try {
           
-          await axios.put('https://62efbfad57311485d1278ded.mockapi.io/api/products/products' + payload.id, {
+          await axios.put("https://62efbfad57311485d1278ded.mockapi.io/api/products/products" + payload.id, {
             title: payload.data.title,
             description: payload.data.description,
             price: payload.data.price,
