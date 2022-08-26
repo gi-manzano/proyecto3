@@ -31,7 +31,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
-// import axios from "axios";
+import axios from "axios";
 export default {
 name:'CarritoPage',
 data(){
@@ -45,23 +45,23 @@ data(){
   }
  };
 },
-mounted() {
+async mounted() {
  
     let isLogged = localStorage.getItem("isLogged");
     let isAdmin = localStorage.getItem("isAdmin");
 
     if (isLogged != "true") {
-      this.$router.push("/home");
+      this.$router.push("/login");
     }
 
     if (isAdmin != "true") {
       this.$router.push("/carrito");
     }
-    // let paramId = this.$route.params.id
-    // let response = await axios.get(
-    //   "https://62efbfad57311485d1278ded.mockapi.io/api/products/products" + paramId
-    // );
-    // this.product = response.data;
+    let paramId = this.$route.params.id
+    let response = await axios.get(
+      "https://62efbfad57311485d1278ded.mockapi.io/api/products/products" + paramId
+    );
+    this.product = response.data;
   },
 methods:{
     sumarUno(){
@@ -84,6 +84,9 @@ methods:{
     },
   },
   computed : {
+    carrito () {
+      return this.$store.getters.carrito
+    },
     ...mapGetters ({
       carrito: 'addToCarrito'
     })

@@ -24,7 +24,7 @@
 <script>
 
 // import axios from "axios"
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
   name: "HomePage",
@@ -40,8 +40,8 @@ export default {
   async mounted() {
     let isLogged = localStorage.getItem("isLogged");
 
-    if (isLogged != "true") {
-      this.$router.push("/login");
+    if (Boolean(isLogged) != "true") {
+      this.$router.push("/home");
     }
     this.$store.dispatch('showProducts')
    
@@ -60,9 +60,11 @@ export default {
       
       }
       this.$store.dispatch(' addToCarrito', payload);
-    }
+    },
+    ...mapActions (['showProducts'])
   },
   computed: {
+    ...mapState (['products']),
     ...mapGetters ({
       products : 'getProducts',
       auth: 'auth'
