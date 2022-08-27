@@ -9,7 +9,7 @@
             
             <!-- inicio de formulario -->
             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registrate Aquí</h3>
-            <b-form  @submit.prevent="ValidarUsuario" method="POST" class="formulario">
+            <form  @submit.prevent="ValidarUsuario" method="POST" class="formulario">
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <!-- usuario -->
@@ -57,10 +57,10 @@
                 </div>
 
               <div class="mt-4 pt-2">
-                <button  type="submit" class="btn btn-secondary btn-lg" @click="EnviarData" value="Registrate">Reguistrate</button>
+                <button  type="submit" class="btn btn-secondary btn-lg" @click="EnviarData" value="Registrate">Registrarme</button>
               </div>
            </div>
-            </b-form>
+            </form>
           </div>
         </div>
       </div>

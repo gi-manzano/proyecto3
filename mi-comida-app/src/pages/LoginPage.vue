@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="mt-4 pt-2">
-                        <button  @click="getLogin" type="sumbit" class="btn btn-primary mb-4">Login</button>
+                        <button  @click="getLogin" type="input" class="btn btn-primary mb-4" >Login</button>
                     </div>
                    
                       <!-- registrarse -->
@@ -76,11 +76,12 @@ export default {
   methods: {
 
      getLogin() {
-      this.$store.dispatch('getLogin', this.$route.params.getUsuarios)
+      this.$store.dispatch('getLogin',  this.$route.params.getUsuarios)
       let data = this.getUsuarios.find((x) => x.email === this.email &&  x.password === this.password);
       localStorage.clear();
+      // alert ('Logueado con exito!!')
 
-      if (data) {
+      if (data?.isLoggd) {
         this.$store.commit ('SET_CURRENT_USUARIOS', data)
         localStorage.setItem("isLogged", "true");
         localStorage.setItem("usuarios", JSON.stringify(data));

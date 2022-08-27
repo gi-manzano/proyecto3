@@ -24,12 +24,6 @@
             <li class="nav-item">
               <a class="nav-link" href="/home">Home</a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="/registro">Registrate</a>
-            </li> -->
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="/admin">Admin</a>
-            </li> -->
           </ul>
          
         </div>
@@ -39,7 +33,7 @@
             <i class="fas fa-shopping-cart"></i>
           </a>
           <div class="dropdown">
-            <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false" @click="logout">Logout
+            <a class="dropdown-toggle d-flex align-items-center hidden-arrow" href="/login" id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false" @click="logout">Logout
             </a>
           </div>
         </div>
@@ -67,8 +61,9 @@
     },
     methods: {
       logout(){
-        localStorage.setItem('isLogged', 'false')
-        this.$router.push('/login')
+        localStorage.setItem('isLogged', 'false');
+        this.$router.push('/login');
+        localStorage.clear ();
       },
       Usuario(){
         let data = localStorage.getItem('usuario')
